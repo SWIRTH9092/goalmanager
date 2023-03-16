@@ -1,15 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <MainHeader />
+  <LoginForm />
+  <!-- <SignForm /> -->
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { useSanityClient } from 'vue-sanity'
+// import SignForm from './components/user/SignForm.vue'
+import MainHeader from './components/MainHeader.vue'
+// import UpdateUserInfo from './components/MainHeader.vue'
+import LoginForm from './components/user/LoginForm.vue'
 
 export default {
   name: 'App',
+  setup() {
+    useSanityClient(
+      {
+        projectId: 'ujf74srv',
+        dataset: 'production',
+        useCdn: false,
+        token: process.env.SANITY_AUTH_TOKEN,
+        apiVersion: "2021-10-21"
+      }, 
+      // true    // will not create a preview client for use elsewhere
+      )
+    },
   components: {
-    HelloWorld
+    // SignForm,
+    MainHeader,
+    // UpdateUserInfo
+    LoginForm
   }
 }
 </script>
@@ -22,5 +42,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+body {
+  margin: 0;
+  background:  #eee;
 }
 </style>
